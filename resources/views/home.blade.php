@@ -14,7 +14,7 @@
                         </div>
                     @endif
 
-                    {{ __('You are logged in!') }}
+                    <a href="/oauth/redirect">Authorize</a>
                 </div>
             </div>
         </div>

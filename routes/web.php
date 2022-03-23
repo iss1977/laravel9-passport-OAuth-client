@@ -20,3 +20,7 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::get('/oauth/redirect', [App\Http\Controllers\OAuthController::class, 'redirect']);
+Route::get('/oauth/callback', [App\Http\Controllers\OAuthController::class, 'callback']);
+

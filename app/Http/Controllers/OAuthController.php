@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Http;
 
 class OAuthController extends Controller
 {
@@ -19,6 +20,15 @@ class OAuthController extends Controller
     }
 
     public function callback(Request $request){
-        dd($request->all());
+        $a = array(
+            'grant_type' => 'authorization_code',
+            'client_id' => '6',
+            'client_secret' => 'R7kocHIGDVlhzEfvsYorHRke25mzUlAqMawKvNUN',
+            'redirect_uri' => 'http://laravel-passport-client.test/oauth/callback',
+            'code' => $request->code
+        );
+
+        $response = Http::asForm()->post('http://laravel-passport-server.test/oauth/token',$a);
+        return $response->json();
     }
 }

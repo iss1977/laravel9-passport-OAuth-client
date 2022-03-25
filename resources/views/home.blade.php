@@ -16,8 +16,13 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    <a href="/oauth/redirect">Authorize</a>
+                    @if (!auth()->user()->token)
+                        <a href="/oauth/redirect">Authorize</a>
+                    @endif
+                    @foreach ($posts as $post)
+                        <h3>{{ $post['title']  }}</h3>
+                        <p>{{ $post['content'] }}</p>
+                    @endforeach
                 </div>
             </div>
         </div>

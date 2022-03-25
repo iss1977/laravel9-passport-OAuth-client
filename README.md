@@ -41,3 +41,35 @@ How it's working:
     ```http://laravel-passport-client.test/oauth/callback?code=def502 .... 8f298c6```
 
 
+- this redirect will be captured by the ```OAuthController```s "callback" function, that will use the recieved code to aquire the token from the Oauth Server with an Http request.
+
+```php
+ $a = array(
+            'grant_type' => 'authorization_code',
+            'client_id' => '6',
+            'client_secret' => 'R7kocHIGDVlhzEfvsYorHRke25mzUlAqMawKvNUN',
+            'redirect_uri' => 'http://laravel-passport-client.test/oauth/callback',
+            'code' => $request->code
+        );
+
+        $response = Http::asForm()->post('http://laravel-passport-server.test/oauth/token',$a);
+```
+
+This can be saved now to the database and associeted to our current user.
+
+- Now we can read the list of posts from the server using the aquired token
+
+``` php
+$response = Http::withHeaders([
+                'Accept' => 'application/json',
+                'Authorization' => 'Bearer '.auth()->user()->token->access_token
+            ])
+            ->get('http://laravel-passport-server.test'.'/api'.'/users/posts');
+
+if($response->ok()){
+    $posts = $response->json()['data'];
+}
+```
+
+
+Thanx goes to [QiroLab](https://youtu.be/K7RfBgoeg48)

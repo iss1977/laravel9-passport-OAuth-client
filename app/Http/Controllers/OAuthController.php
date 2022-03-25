@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
@@ -29,6 +30,13 @@ class OAuthController extends Controller
         );
 
         $response = Http::asForm()->post('http://laravel-passport-server.test/oauth/token',$a);
-        return $response->json();
+        $response = $response->json();
+
+        $request->user()->token()->delete();
+        $request->user()->token()->create([
+            'access_token' => $response['access_token']
+        ]);
+
+        return redirect(RouteServiceProvider::HOME)->with('alerts.success','Token successfully saved.');
     }
 }

@@ -4,6 +4,9 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+            <div>
+                <x-alerts.session-alert/>
+            </div>
             <div class="card">
                 <div class="card-header">{{ __('Dashboard') }}</div>
 

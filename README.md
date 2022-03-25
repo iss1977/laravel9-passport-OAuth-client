@@ -5,7 +5,11 @@ This app will be the client for the [Laravel Passport OAuth Server](https://gith
 
 
 Development steps:
-- Creating routes and Controller + methods for redirect and callback links
+-   Creating routes and Controller + methods for redirect and callback links
+    Inteded to work together with Oauth Server
+-   Creating component for alerting.
+-   Creating Model and migration to save the tokens in the database.
+
 
 
 
